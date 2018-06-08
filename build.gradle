@@ -13,3 +13,20 @@ repositories {
 dependencies {
     compile 'org.sat4j:org.sat4j.sat:2.3.0'
 }
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'NQueensProblem'
+    }
+}
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'NQueensProblem'
+    }
+    baseName = 'nqueens-fat-jar'
+    from {
+         configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    with jar
+}
